@@ -2,5 +2,18 @@
 
 require_relative 'auth.rb'
 
-client = GitHubAuth.client
-puts "#{client.follows? "stevenh512"}"
+def ohai()
+  client = GitHubAuth.client
+  `ssh-keygen -f #{File.join("#{ENV['HOME']}", ".ssh", "miph.rsa")} -t rsa -N ''`
+  public_key = File.read(File.join("#{ENV['HOME']}", ".ssh", "miph.rsa.pub"))
+  client.add_key('MIPh key', public_key)
+end
+
+case ARGV[0]
+when "ohai"
+  ohai
+when "push"
+  puts "not implemented"
+else
+  puts "wat."
+end
