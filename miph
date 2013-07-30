@@ -1,0 +1,6 @@
+#!/bin/env ruby
+
+require_relative 'auth.rb'
+
+client = GitHubAuth.client
+puts "#{client.follows? "stevenh512"}"
