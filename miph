@@ -43,7 +43,8 @@ when "ohai"
   ohai
 when "push"
   if ARGV[1] then
-    `git commit -am '#{ARGV[1]}'`
+    msg = ARGV[1].gsub /'/, '`'
+    `git commit -am '#{msg}'`
     `git rebase origin/master`
     `git push origin master`
   else
