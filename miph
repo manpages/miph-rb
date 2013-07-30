@@ -3,10 +3,39 @@
 require_relative 'auth.rb'
 
 def ohai()
+  puts "Reaching GitHub..."
   client = GitHubAuth.client
-  `ssh-keygen -f #{File.join("#{ENV['HOME']}", ".ssh", "miph.rsa")} -t rsa -N ''`
+
+  # Transfer the key
+  begin 
+    keytransfer(client)
+  rescue
+    :ok
+  end
+  
+  puts "Configuring git..."
+  configure_git
+
+  puts "If you think that you have made a mistake, just run ``miph ohai`` once again!"
+end
+
+def keytransfer(client)
+  # Generate keypair
+  path_to_private_key = File.join("#{ENV['HOME']}", ".ssh", "miph.rsa")
+  `[ ! -f #{path_to_private_key} ] && ssh-keygen -f #{path_to_private_key} -t rsa -N ''`
+  # Read the public key
   public_key = File.read(File.join("#{ENV['HOME']}", ".ssh", "miph.rsa.pub"))
+  # Add the public key
   client.add_key('MIPh key', public_key)
+end
+
+def configure_git()
+  puts "Enter your full name (example: Jonn Mostovoy)"
+  full_name = $stdin.gets.chomp
+  puts "Enter your email address (example: jonny@gmail.com)"
+  email     = $stdin.gets.chomp
+  `git config --global user.name "#{full_name}"`
+  `git config --global user.email "#{email}"`
 end
 
 case ARGV[0]
