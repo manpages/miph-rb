@@ -42,7 +42,16 @@ case ARGV[0]
 when "ohai"
   ohai
 when "push"
-  puts "not implemented"
+  if ARGV[1] then
+    `git commit -am '#{ARGV[1]}'`
+    `git rebase origin/master`
+    `git push origin master`
+  else
+    puts """
+    You forgot to write commit message, correct usage:
+    ``miph push 'description of your changes'``.
+    """
+  end
 else
   puts "wat."
 end
