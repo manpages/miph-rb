@@ -43,6 +43,7 @@ when "ohai"
   ohai
 when "push"
   if ARGV[1] then
+    #TODO: deal with "!" character
     msg = ARGV[1].gsub /'/, '`'
     `git commit -am '#{msg}'`
     `git rebase origin/master`
