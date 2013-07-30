@@ -47,7 +47,8 @@ when "push"
     msg = ARGV[1].gsub /'/, '`'
     `git commit -am '#{msg}'`
     `git rebase origin/master`
-    `git push origin master`
+    `git push origin master && echo ":-)"`
+    puts "If you don't see smiley face above, please contact your teacher!"
   else
     puts """
     You forgot to write commit message, correct usage:
