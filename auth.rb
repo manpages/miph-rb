@@ -4,7 +4,7 @@ require 'yaml'
 class GitHubAuth
   NOTE = "MIPh-rb: GitHub for kids."
   SCOPES = ["user", "repo"]
-  CREDENTIALS = File.join("#{ENV['HOME']}", ".config", "sample_app.yml")
+  CREDENTIALS = File.join("#{ENV['HOME']}", ".config", "miph.yml")
  
   def self.client
     new.client
