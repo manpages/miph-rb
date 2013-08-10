@@ -37,7 +37,7 @@ class GitHubAuth
  
   def ask_login
     p "Enter your GitHub username"
-    gets.chomp
+    $stdin.gets.chomp
   end
  
   # No-echo password input, stolen from Defunkt's `hub`
